@@ -9,6 +9,12 @@ import { DUMP_DOWNLOAD_URL } from './resources'
 import { getDirname } from './util';
 import { downloadFile } from './helperFunctions/downloadFile';
 import { unZipFile } from './helperFunctions/unZipFile';
+import { createTableFromCsv } from './helperFunctions/databseCreation'
+
+interface CsvFile {
+  tableName: string;
+  filePath: string;
+}
 
 export async function processDataDump() {
   // Downloading the dump file and unzipping it
@@ -16,8 +22,19 @@ export async function processDataDump() {
   const folderPath: string = path.join(__dirname, 'tmp');
   const zipFilePath: string = path.join(folderPath, 'tar.zip');
   
+  // Downloading and Unzipping the file5rgdexs
   await downloadFile(DUMP_DOWNLOAD_URL, folderPath, 'tar.zip')
   await unZipFile(zipFilePath, folderPath);
+
+  // Table Creation
+  const csvFiles: CsvFile[] = [
+    { tableName: 'customers', filePath: './tmp/dump/customers.csv' },
+    { tableName: 'organizations', filePath: './tmp/dump/organizations.csv' },
+  ];
+  
+  csvFiles.forEach((csvFile) => {
+    createTableFromCsv(csvFile);
+  });
 }
 
 
