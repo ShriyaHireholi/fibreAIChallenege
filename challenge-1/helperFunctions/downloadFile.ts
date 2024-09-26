@@ -12,17 +12,17 @@ import * as path from 'path';
 export async function downloadFile (
     downloadUrl: string,
     folderPath: string,
-    fileName: string
+    zipFilePath: string,
 ): Promise<void> {
 
     try {
+        console.log('Downloading Zip file . . . .');
         // Checking if the folder exists. If not then creating the folder
         if (!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath);
         }
 
         // File path to download the folder
-        const zipFilePath: string = path.join(folderPath, fileName);
         const file: fs.WriteStream = fs.createWriteStream(zipFilePath);
 
         // Downloading the zip file
@@ -39,6 +39,7 @@ export async function downloadFile (
             file.on('finish', resolve)
             file.on('error', reject)
         })
+        
         console.log('Zip file downloaded successfully to ' + zipFilePath);
     } catch (error) {
         console.error('Error while downloading the zip file', error);

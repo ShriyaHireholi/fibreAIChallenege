@@ -9,6 +9,9 @@ interface CsvFile {
 
 const createTableFromCsv = async (csvFile: CsvFile) => {
   try {
+
+    // referenced from stack overflow
+    // read the file
     const fileStream = fs.createReadStream(csvFile.filePath, 'utf8');
     const rl = readline.createInterface({
       input: fileStream,
@@ -19,6 +22,7 @@ const createTableFromCsv = async (csvFile: CsvFile) => {
     let rows: any[] = [];
     let isFirstLine = true;
 
+     // Referenced from blackbox.ai
     for await (const line of rl) {
       if (isFirstLine) {
         headers = line.split(',');
