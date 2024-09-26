@@ -45,3 +45,9 @@ export async function processCompanyList() {
   
   await saveToJson(results, 'out/scraped.json');
 }
+
+
+/*
+  References:
+  1. https://c2fo.github.io/fast-csv/docs/introduction/example
+*/

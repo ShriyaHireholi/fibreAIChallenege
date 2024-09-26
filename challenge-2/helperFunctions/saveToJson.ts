@@ -1,5 +1,7 @@
-import { writeFile } from 'fs/promises';
+import { writeFile } from "fs/promises";
 
+
+// Code referenced from ChatGPT
 /**
  * Saves the scraped data into a JSON file in the 'out/' folder.
  */
